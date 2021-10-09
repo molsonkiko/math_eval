@@ -36,4 +36,7 @@ by compute("x\*2") is run.
  
 ### Added
 
-- Initial commit.
+- Initial commit, although unfortunately the repository no longer exists.
+You can still get the source code for 0.1.0 from the Python package index.
+There's no reason to do so though, and it's almost identical to the current
+code.

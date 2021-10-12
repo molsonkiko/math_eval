@@ -865,7 +865,7 @@ Notes:
         a normal slice.
     - IntRanges support the '==' operation and no other arithmetic operations.
     - You can declare a string literal inside a compute expression by surrounding the
-        string in '`' backticks. '`' characters can be included inside the string by
+        string in '``' backticks. '``' characters can be included inside the string by
         escaping them with '\\'.
         - If you want arbitrarily nested string literals (e.g., something like
             before a backtick for each level of nesting of that backtick.
@@ -916,7 +916,7 @@ Notes:
         if safe:
             def outfunc(*args):
                 for arg in args:
-                    if type(arg) not in {int, float, complex, Decimal}:
+                    if not isinstance(arg, (int, float, complex, Decimal)):
                         raise ValueError("Functions produced by compute() with safe = True do not accept non-numeric arguments.")
                 return stackfunc(args)
             outfunc.__doc__ = eqn + "\nArgs are positional-only in the order {}\nThis function only accepts numeric arguments.".format(varnames)

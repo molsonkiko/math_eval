@@ -3,6 +3,7 @@
 import re
 import operator
 from decimal import Decimal
+from fractions import Fraction
 from math import inf, e, pi
 import logging
 logging.basicConfig(level = logging.WARN)
@@ -916,7 +917,7 @@ Notes:
         if safe:
             def outfunc(*args):
                 for arg in args:
-                    if not isinstance(arg, (int, float, complex, Decimal)):
+                    if type(arg) not in {int, float, bool, Fraction, Decimal, complex}:
                         raise ValueError("Functions produced by compute() with safe = True do not accept non-numeric arguments.")
                 return stackfunc(args)
             outfunc.__doc__ = eqn + "\nArgs are positional-only in the order {}\nThis function only accepts numeric arguments.".format(varnames)

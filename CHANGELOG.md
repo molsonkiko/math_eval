@@ -14,7 +14,17 @@ At that point I might as well just also add tuples and lists.
 - Alternatively, maybe add an "iterable" function that takes a single string
 argument and runs ast.literal_eval on it. That way I don't need to figure out
 how to make iterables on my own.
- 
+
+## [0.2.1] - 2021-10-12
+
+
+## Changed
+- Add support for bool and fractions.Fraction types to safe_compute.
+Note that subtypes of those classes will NOT be supported, and there are
+not plans to change this. Fraction, int, float, Decimal, bool, and commplex
+cover all the types of numbers that anyone might reasonably need, 
+including special values like float('nan') and math.inf.
+
 ## [0.2.0] - 2021-10-08
   
 math_eval version 0.2.0, is now available on the Python package index. It has 

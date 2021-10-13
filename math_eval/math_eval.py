@@ -4,6 +4,7 @@ import re
 import operator
 from decimal import Decimal
 from fractions import Fraction
+from ast import literal_eval
 from math import inf, e, pi
 import logging
 logging.basicConfig(level = logging.WARN)
@@ -260,6 +261,7 @@ ufunctions.update({
     'intar'      : astype_int,
     'floatar'    : astype_float,
     'strar'      : astype_str,
+    'iterable'   : literal_eval, # convert backtickstring into an iterable
 })
 
 safe_binops = {

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: math-eval
-Version: 0.2.1
+Version: 0.2.3
 Summary: Tool for safe (or less safe) evaluation of strings as math expressions
 Home-page: https://github.com/molsonkiko/math_eval
 Author: Mark Johnston Olson

@@ -319,6 +319,7 @@ precedence_map = {
     operator.pow      : 5,
     negpow            : 5,
     getitem           : 6,
+    neg_getitem       : 6,
 }
 
 constants = {

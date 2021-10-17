@@ -17,13 +17,21 @@ how to make iterables on my own.
 
 ## [0.2.1] - 2021-10-12
 
-
 ## Changed
 - Add support for bool and fractions.Fraction types to safe_compute.
 Note that subtypes of those classes will NOT be supported, and there are
 not plans to change this. Fraction, int, float, Decimal, bool, and commplex
 cover all the types of numbers that anyone might reasonably need, 
 including special values like float('nan') and math.inf.
+
+
+## [0.2.2] - 2021-10-17
+
+## Changed
+- Fixed bug where using the unary "-" in combination with slicing \[\]
+would raise an uninformative error message instead of returning the
+correct value. Now `compute("-x[0]")([1])` will return -1 rather than an error.
+
 
 ## [0.2.0] - 2021-10-08
   
@@ -41,7 +49,8 @@ If you're calling fun on a lot of iterables, this adds up.
 In the current version, compute("x\*2") is called once as fun is being defined.
 Every subsequent time fun is called, the super-fast-running function produced
 by compute("x\*2") is run.
- 
+
+
 ## [0.1.0] - 2021-10-02
  
 ### Added

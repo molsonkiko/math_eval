@@ -40,4 +40,4 @@ Functions:
 '''
 from math_eval.math_eval import *
 # from math_eval.Equation import Equation
-__version__ = '0.2.1'
+__version__ = '0.2.2'

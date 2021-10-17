@@ -29,6 +29,10 @@ def getitem(arr, key_or_index):
         return arr[key_or_index.slice]
     return arr[key_or_index]
 
+def neg_getitem(arr, key_or_index):
+    '''Equivalent to -arr[key_or_index]'''
+    return -getitem(arr, key_or_index)
+
     
 def has_pattern(string, pat):
     '''string: str, or pandas.Series containing strings.
@@ -311,17 +315,19 @@ precedence_map = {
     operator.mod      : 3,
     operator.mul      : 3,
     operator.truediv  : 3,
-    operator.pow      : 4,
-    negpow            : 4,
-    getitem           : 5,
+    # operator.neg      : 4, # uminus precedence
+    operator.pow      : 5,
+    negpow            : 5,
+    getitem           : 6,
 }
 
 constants = {
-    'True': True,
-    'False': False,
     'e': e,
-    'pi': pi,
+    'False': False,
     'inf': inf,
+    'None': None,
+    'True': True,
+    'pi': pi,
 }
 
 
@@ -625,7 +631,7 @@ def evaluate_tokens(tokens, varnames, safe = False):
     ii = 0
     while ii < len(tokens):
         tok = tokens[ii].strip()
-        if tok == '[' and not safe:
+        if tok == '[' and not safe: # square brackets for slicing and indexing
             new_expr = []
             parens_opened += 1
             for jj in range(ii+1, len(tokens)):
@@ -637,12 +643,18 @@ def evaluate_tokens(tokens, varnames, safe = False):
                             paren_evald_toks = evaluate_tokens(new_expr, varnames)
                             paren_expr = resolve_big_stack(paren_evald_toks, varnames)
                         elif jj-ii == 2:
-                            # the paren expression only contains one token, so it's
-                            # as if the parens weren't there at all
+                            # square brackets containing only one token, e.g.
+                            # "x[1]"
                             paren_expr = parse_token(tokens[ii+1])
                         else: # parentheses enclosing nothing
                             paren_expr = None
-                        evald_tokens.extend([getitem, paren_expr])
+                        
+                        if uminus: # eqn is something like "-x[0]"
+                            evald_tokens.append(neg_getitem)
+                            uminus = False
+                        else:
+                            evald_tokens.append(getitem)
+                        evald_tokens.append(paren_expr)
                         ii = jj+1
                         break
                     else:
@@ -732,6 +744,7 @@ parentheses, square brackets, or variable names containing only ASCII letters.''
                 if tok == '**':
                     evald_tok = negpow
                 else:
+                    # ComputeLogger.debug(f"Applying uminus to {evald_tok}")
                     evald_tokens[last_num_ind] = apply_uminus(evald_tokens[last_num_ind], varnames)
                 uminus = False
             evald_tokens.append(evald_tok)
@@ -914,6 +927,7 @@ Notes:
     tokens = tokenize(eqn)
     varnames = get_varnames(tokens, safe)
     evald_tokens = evaluate_tokens(tokens, varnames, safe)
+    ComputeLogger.debug(f"evald_tokens = {evald_tokens}")
     stackfunc = resolve_big_stack(evald_tokens, varnames)
     if isinstance(stackfunc, function):
         if safe:

@@ -457,7 +457,8 @@ def test_getitem(computer = compute,
               ImmutableDict({'b': 3}), 
               '123', 
               (7, 8, 9, 10, 11)]
-    iterables = ['w', "tuple(`str` map y)", "str(z)", "`a\\`bun\\`bar`"]
+    iterables = ['w', "tuple(`str` map y)", "str(z)", "`a\\`bun\\`bar`",
+                 '-x']
     slicers = ['`a`', '1', '1:', ':', '-3::-1', ':4:2', ':3', 'int(x[0])']
     oldlen = 0
     for itbl, inp, slicer in itertools.product(iterables, inputs, slicers):

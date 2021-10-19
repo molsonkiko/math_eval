@@ -11,9 +11,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Maybe consider adding support for comma-separated arguments for functions.
 At that point I might as well just also add tuples and lists.
 
-- Alternatively, maybe add an "iterable" function that takes a single string
-argument and runs ast.literal_eval on it. That way I don't need to figure out
-how to make iterables on my own.
+
+## [0.2.3] - 2021-10-17
+
+math_eval version 0.2.3 is now available on the Python package index. It has 
+been tested for Python 3.6 to 3.9.
+
+## Changed
+- Fixed bug where using the unary "-" in combination with slicing \[\]
+would raise an uninformative error message instead of returning the
+correct value. Now `compute("-x[0]")([1])` will return -1 rather than an error.
+
+- Added `iterable()` function to `compute()`, which takes a backtick-enclosed string literal as argument and invokes [`ast.literal_eval()`](https://docs.python.org/3/library/ast.html?highlight=literal_eval#ast.literal_eval).
 
 ## [0.2.1] - 2021-10-12
 
@@ -23,15 +32,6 @@ Note that subtypes of those classes will NOT be supported, and there are
 not plans to change this. Fraction, int, float, Decimal, bool, and commplex
 cover all the types of numbers that anyone might reasonably need, 
 including special values like float('nan') and math.inf.
-
-
-## [0.2.2] - 2021-10-17
-
-## Changed
-- Fixed bug where using the unary "-" in combination with slicing \[\]
-would raise an uninformative error message instead of returning the
-correct value. Now `compute("-x[0]")([1])` will return -1 rather than an error.
-
 
 ## [0.2.0] - 2021-10-08
   

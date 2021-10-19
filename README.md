@@ -45,6 +45,15 @@ How to use
     >>> compute("(3*4.5**2 >= 17) | 1/-5 == 3")
     True
     ```
+	
+**WARNING**
+`safe_compute()` is *not* safe if arbitrary ufunctions are added, and `compute()` is probably unsafe in countless ways I haven't thought of as it is. 
+
+For instance, if the `chr` and `eval` ufunctions were introduced, even `safe_compute()` could be used to evaluate artibrary Python expressions by translating integers into strings, and evaluating those strings with the normal Python interpreter.
+
+I (Mark J. Olson) am *not* knowledgeable about computer security, so think carefully about possible workarounds for safe_compute's safety features before deploying it in a safety-sensitive setting.
+
+
 Contributing
 ------------
 

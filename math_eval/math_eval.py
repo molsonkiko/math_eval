@@ -575,32 +575,32 @@ def tokenize(eqn):
     tokens = [tok for tok in tokens if tok.strip()!='']
     
     first_open_sqbk, first_open_paren = None, None
-    close_paren_count, open_paren_count, close_sqbk_count, open_sqbk_count = 0, 0, 0, 0
+    open_paren_count, open_sqbk_count = 0, 0
     for ii, tok in enumerate(tokens):
         if tok.strip() == '(':
             open_paren_count += 1
             if first_open_paren is None:
                 first_open_paren = ii
         if tok.strip() == ')':
-            close_paren_count += 1
-            if close_paren_count > open_paren_count:
+            open_paren_count -= 1
+            if open_paren_count < 0:
                 raise ComputeError("Unmatched ')'", tokens, ii)
-            if close_paren_count == open_paren_count:
+            if open_paren_count == 0:
                 first_open_paren = None
         if tok.strip() == '[':
             open_sqbk_count += 1
             if first_open_sqbk is None:
                 first_open_sqbk = ii
         if tok.strip() == ']':
-            close_sqbk_count += 1
-            if close_sqbk_count > open_sqbk_count:
+            open_sqbk_count -= 1
+            if open_sqbk_count < 0:
                 raise ComputeError("Unmatched ']'", tokens, ii)
-            if close_sqbk_count == open_sqbk_count:
+            if open_sqbk_count == 0:
                 first_open_sqbk = None
     
-    if open_paren_count > close_paren_count:
+    if open_paren_count > 0:
         raise ComputeError("Unmatched '('", tokens, first_open_paren)
-    if open_sqbk_count > close_sqbk_count:
+    if open_sqbk_count > 0:
         raise ComputeError("Unmatched '['", tokens, first_open_sqbk)    
     
     

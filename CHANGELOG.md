@@ -12,6 +12,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 At that point I might as well just also add tuples and lists.
 
 
+## [0.2.4] - 2021-11-02
+
+math_eval version 0.2.4 is now available on the Python package index. It has 
+been tested for Python 3.6 to 3.9.
+
+## Fixed
+
+- math_eval.Equation can now be imported in Python versions earlier than 3.9.
+Previously this raised an error because some functions in builtin "math"
+that are present in Python 3.9 were not present in earlier versions of Python.
+Now the module determines which math functions can accept one argument at
+import time.
+
 ## [0.2.3] - 2021-10-17
 
 math_eval version 0.2.3 is now available on the Python package index. It has 

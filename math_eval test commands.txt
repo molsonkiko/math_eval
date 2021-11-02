@@ -1,0 +1,1 @@
+from math_eval.test_math_eval import *; import math_eval; print(math_eval.__file__); print(Equation("acos(0.5)").expr); print(compute("-x[0]/3")([1])); dfg = test_getitem(acceptable_error_types = '').dframe; print(dfg.statuses.value_counts()); dfmap = test_map(acceptable_error_types = '').dframe; print(dfmap.statuses.value_counts())

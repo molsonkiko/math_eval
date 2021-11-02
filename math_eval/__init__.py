@@ -39,5 +39,5 @@ Functions:
     TODO: Add syntax for defining a new function or variable within compute expressions.
 '''
 from math_eval.math_eval import *
-from math_eval.Equation import Equation
-__version__ = '0.2.3'
+from .Equation import Equation
+__version__ = '0.2.4'

@@ -5,52 +5,21 @@ some extra math functions thrown in.
 Every single-variable function in Python's built-in "math" module 
 is available for use here.
 '''
-from math_eval import *
+from math import *
 import math
+from .math_eval import *
 
-safe_ufunctions.update({
-    'acos': math.acos,
-    'acosh': math.acosh,
-    'asin': math.asin,
-    'asinh': math.asinh,
-    'atan': math.atan,
-    'ceil': math.ceil,
-    'cos': math.cos,
-    'cosh': math.cosh,
-    'degrees': math.degrees,
-    'erf': math.erf,
-    'erfc': math.erfc,
-    'exp': math.exp,
-    'expm1': math.expm1,
-    'fabs': math.fabs,
-    'factorial': math.factorial,
-    'floor': math.floor,
-    'frexp': math.frexp,
-    'gamma': math.gamma,
-    'gcd': math.gcd,
-    'hypot': math.hypot,
-    'isfinite': math.isfinite,
-    'isinf': math.isinf,
-    'isnan': math.isnan,
-    'isqrt': math.isqrt,
-    'lcm': math.lcm,
-    'lgamma': math.lgamma,
-    'log': math.log,
-    'log10': math.log10,
-    'log1p': math.log1p,
-    'log2': math.log2,
-    'modf': math.modf,
-    'perm': math.perm,
-    'radians': math.radians,
-    'sin': math.sin,
-    'sinh': math.sinh,
-    'sqrt': math.sqrt,
-    'tan': math.tan,
-    'tanh': math.tanh,
-    'trunc': math.trunc,
-    'ulp': math.ulp,
-})
-ufunctions |= safe_ufunctions
+one_arg_mathfuncs = {}
+
+for funcname in dir(math):
+    func = globals()[funcname]
+    try:
+        func(2)
+        one_arg_mathfuncs[funcname] = func
+    except:
+        pass
+safe_ufunctions.update(one_arg_mathfuncs)
+ufunctions.update(one_arg_mathfuncs)
 
 class Equation:
     def __init__(self, eqn):
